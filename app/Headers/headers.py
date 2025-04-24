@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException
 import mlflow.pyfunc
 import pandas as pd
 from utils import logger
-from Models import models
+from Schema import schema
 
 router=APIRouter()
 
@@ -13,7 +13,7 @@ async def health_check():
 
 
 @router.post("/predict/{model_name}")
-async def predict(model_name: str, request: models.PredictRequest):
+async def predict(model_name: str, request: schema.PredictRequest):
     logger.logger.info(f"Prediction requested for model: {model_name}")
     try:
         model_uri = f"models:/{model_name}/latest"
